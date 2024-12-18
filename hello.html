@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input,
+        button {
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #c0c3c1;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #03cc8c;
+        }
+
+        button {
+            background-color: #03cc8c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #02b37d;
+        }
+
+        .forgot-password {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #03cc8c;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #02b37d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>Login to Your Account</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Enter Username" required>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+    </div>
+    <script>
+        // script.js
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (!username || !password) {
+                alert("Please enter your username and password!");
+                return;
+            }
+
+            // Simulate successful login
+            alert(`Welcome back, ${username}!`);
+            // Redirect to dashboard or homepage
+            window.location.href = "dashboard.html";
+        });
+    </script>
+</body>
+
+</html>

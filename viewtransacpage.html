@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transaction</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 16px;
+            color: #2C3E50;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select,
+        input,
+        button {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        select:focus,
+        input:focus,
+        button:focus {
+            outline: none;
+            border-color: #2ecc71; /* Darker Green for focus */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Adjustments for 'Tags' dropdown */
+        #tags {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            background-color: #fff;
+            color: #34495e;
+            resize: vertical;
+        }
+
+        #tags option {
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        #tags:focus {
+            outline: none;
+            border-color: #16a085;
+        }
+
+        .button-container button {
+            width: 150px; /* Increased width */
+            background-color: #16a085; /* Darker Green button color */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Light Green color for Apply Filters and Edit buttons */
+        #apply-filters,
+        .edit-btn {
+            background-color: #2ecc71; /* Light Green */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #apply-filters:hover,
+        .edit-btn:hover {
+            background-color: #27ae60; /* Darker Green for hover effect */
+        }
+
+        .actions button {
+            margin-left: 5px;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .actions .edit-btn {
+            background-color: #16a085; /* Lighter Green for edit */
+            color: white;
+        }
+
+        .actions .delete-btn {
+            background-color: lightcoral; /* Darker Green for delete */
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .filters-container,
+            .transaction-list {
+                padding: 10px;
+            }
+
+            .button-container button {
+                width: 100px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add Transaction</h1>
+        
+
+        <!-- Add Transaction Form -->
+        <form action="/submit-transaction" method="POST">
+
+            <!-- Transaction Title -->
+            <label for="transaction-title">Title</label>
+            <input type="text" id="transaction-title" name="transaction-title" placeholder="Enter transaction title" required />
+
+            <!-- Transaction Type -->
+            <label for="transaction-type">Transaction Type</label>
+            <select id="transaction-type" name="transaction-type" required>
+                <option value="">Select Type</option>
+                <option value="Credit">Credit</option>
+                <option value="Debit">Debit</option>
+                <option value="Debt">Debt</option>
+            </select>
+
+            <!-- Tags -->
+            <label for="transaction-type">Tags</label>
+            <select id="transaction-type" name="transaction-type" required>
+                <option value="">Select Type</option>
+                <option value="Credit">Salary</option>
+                <option value="Debit">Food</option>
+                <option value="Debt">Rent</option>
+                <option value="Debt">Loan</option>
+            </select>
+
+            <!-- Transaction Date -->
+            <label for="start-date">Date</label>
+            <input type="date" id="start-date" name="start-date" required />
+
+            
+            <!-- Transaction Amount -->
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" placeholder="Enter transaction amount" required />
+
+            <!-- Submit Button -->
+            <div class="button-container">
+                <button style="background-color: grey; margin-right: 30px;">Cancel</button>
+                <button type="submit" id="apply-filters" style="background-color: #16a085;">Add Transaction</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

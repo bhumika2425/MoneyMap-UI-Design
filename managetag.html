@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Tags</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tags-section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .tags-list {
+            margin-bottom: 20px;
+        }
+
+        .tags-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .tags-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            margin-bottom: 8px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        .tags-list li span {
+            font-size: 16px;
+            color: #2C3E50;
+        }
+
+        .tags-list li button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .tags-list li button:hover {
+            background-color: #27ae60;
+        }
+
+        .add-tag-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-tag-section input {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        .add-tag-section button {
+            padding: 10px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-tag-section button:hover {
+            background-color: #27ae60;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .add-tag-section input {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Manage Tags</h1>
+
+        <!-- Tags List Section -->
+        <div class="tags-section">
+            <div class="tags-list">
+                <h3>Default Tags</h3>
+                <ul>
+                    <li><span>Salary</span></li>
+                    <li><span>Rent</span></li>
+                    <li><span>Food</span></li>
+                    <li><span>Loan</span></li>
+                </ul>
+            </div>
+
+            <div class="tags-list">
+                <h3>Custom Tags</h3>
+                <ul id="custom-tags-list">
+                    <!-- Custom tags will be dynamically added here -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Add New Tag Section -->
+        <div class="add-tag-section">
+            <h3>Add New Tag</h3>
+            <input type="text" id="new-tag" placeholder="Enter new tag name" />
+            <button id="add-tag">Add Tag</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample custom tags data (you can replace with dynamic data)
+        const customTags = [
+            { id: 1, name: 'Investment' },
+            { id: 2, name: 'Savings' }
+        ];
+
+        // Function to render the custom tags list
+        function renderTags() {
+            const tagsList = document.getElementById('custom-tags-list');
+            tagsList.innerHTML = ''; // Clear existing list
+
+            customTags.forEach(tag => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${tag.name}</span>
+                    <div>
+                        <button onclick="editTag(${tag.id})">Edit</button>
+                        <button onclick="deleteTag(${tag.id})">Delete</button>
+                    </div>
+                `;
+                tagsList.appendChild(li);
+            });
+        }
+
+        // Function to add a new tag
+        document.getElementById('add-tag').addEventListener('click', function () {
+            const newTagName = document.getElementById('new-tag').value.trim();
+            if (newTagName) {
+                const newTag = {
+                    id: customTags.length + 1,
+                    name: newTagName
+                };
+                customTags.push(newTag);
+                renderTags(); // Re-render the custom tags list
+                document.getElementById('new-tag').value = ''; // Clear input field
+            } else {
+                alert('Please enter a valid tag name');
+            }
+        });
+
+        // Function to edit an existing tag
+        function editTag(tagId) {
+            const tag = customTags.find(t => t.id === tagId);
+            const newTagName = prompt('Edit tag name:', tag.name);
+            if (newTagName && newTagName !== tag.name) {
+                tag.name = newTagName;
+                renderTags(); // Re-render the custom tags list
+            }
+        }
+
+        // Function to delete an existing tag
+        function deleteTag(tagId) {
+            const index = customTags.findIndex(t => t.id === tagId);
+            if (index > -1) {
+                customTags.splice(index, 1);
+                renderTags(); // Re-render the custom tags list
+            }
+        }
+
+        // Initial render of custom tags
+        renderTags();
+    </script>
+</body>
+
+</html>

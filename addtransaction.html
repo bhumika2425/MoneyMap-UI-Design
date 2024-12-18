@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add/Edit Transaction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        .transaction-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #2C3E50;
+        }
+
+        select,
+        input,
+        textarea {
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #BDC3C7;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #03cc8c;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .save-button {
+            background-color: #16a085;
+            color: white;
+        }
+
+        .save-button:hover {
+            background-color: #16a085;
+        }
+
+        .cancel-button {
+            background-color: #e6e7e9;
+            color: #2C3E50;
+        }
+
+        .cancel-button:hover {
+            background-color: #d1d3d4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="transaction-container">
+        <h1 id="form-title">Add Transaction</h1>
+        <form id="transactionForm">
+            <!-- Transaction Type Dropdown -->
+            <label for="transaction-type">Transaction Type</label>
+            <select id="transaction-type" required>
+                <option value="" disabled selected>Select Transaction Type</option>
+                <option value="credit">Credit</option>
+                <option value="debit">Debit</option>
+                <option value="debt">Debt</option>
+            </select>
+
+            <!-- Amount Text Field -->
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="Enter Amount" required>
+
+            <!-- Source of Debt Text Field (Visible only for Debt) -->
+            <div id="debt-source-container" class="hidden">
+                <label for="debt-source">Source of Debt</label>
+                <input type="text" id="debt-source" placeholder="Enter Source of Debt">
+            </div>
+
+            <!-- Due Date Date Picker (Visible only for Debt) -->
+            <div id="due-date-container" class="hidden">
+                <label for="due-date">Due Date</label>
+                <input type="date" id="due-date">
+            </div>
+
+            <!-- Tags Multiselect Dropdown -->
+            <label for="tags">Tags</label>
+            <select id="tags" multiple>
+                <option value="rent">Rent</option>
+                <option value="salary">Salary</option>
+                <option value="food">Food</option>
+                <option value="shopping">Shopping</option>
+            </select>
+
+            <!-- Notes Text Area -->
+            <label for="notes">Notes (Optional)</label>
+            <textarea id="notes" placeholder="Enter any notes"></textarea>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="save-button">Save</button>
+                <button type="button" class="cancel-button" onclick="window.location.href = 'dashboard.html';">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Handling the form changes for 'Debt' transaction type
+        document.getElementById("transaction-type").addEventListener("change", function () {
+            const debtSourceContainer = document.getElementById("debt-source-container");
+            const dueDateContainer = document.getElementById("due-date-container");
+            const transactionType = this.value;
+
+            // Show or hide debt-specific fields
+            if (transactionType === "debt") {
+                debtSourceContainer.classList.remove("hidden");
+                dueDateContainer.classList.remove("hidden");
+            } else {
+                debtSourceContainer.classList.add("hidden");
+                dueDateContainer.classList.add("hidden");
+            }
+        });
+
+        // Form Submission
+        document.getElementById("transactionForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const transactionType = document.getElementById("transaction-type").value;
+            const amount = document.getElementById("amount").value;
+            const debtSource = document.getElementById("debt-source").value;
+            const dueDate = document.getElementById("due-date").value;
+            const tags = Array.from(document.getElementById("tags").selectedOptions).map(option => option.value);
+            const notes = document.getElementById("notes").value;
+
+            // Validate required fields
+            if (!transactionType || !amount) {
+                alert("Please fill in all required fields!");
+                return;
+            }
+
+            // Display transaction details as an alert (you can send this to a backend)
+            alert(`Transaction Saved!\nType: ${transactionType}\nAmount: $${amount}\nDebt Source: ${debtSource}\nDue Date: ${dueDate}\nTags: ${tags.join(", ")}\nNotes: ${notes}`);
+
+            // Redirect to the dashboard (or any other page)
+            window.location.href = "dashboard.html";
+        });
+    </script>
+</body>
+
+</html>

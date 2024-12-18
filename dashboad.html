@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - MONEY MAP</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #f4f7fc;
+    }
+
+    .sidebar {
+      background-color: #2c3e50;
+      color: #fff;
+      width: 250px;
+      padding: 20px;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      margin: 20px 0;
+    }
+
+    .sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      padding: 10px;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #34495e;
+    }
+
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      color: #2c3e50;
+    }
+
+    .filters {
+      display: flex;
+      align-items: center;
+    }
+
+    .filters label {
+      margin-right: 10px;
+    }
+
+    .filters input {
+      margin-right: 10px;
+      padding: 5px;
+    }
+
+    .filters button {
+      padding: 6px 15px;
+      background-color: #16a085;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .stat-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 10px;
+      text-align: center;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .stat-card h3 {
+      color: #7f8c8d;
+      font-size: 20px;
+    }
+
+    .stat-card p {
+      font-size: 24px;
+      color: #16a085;
+    }
+
+    .transactions, .pending-debts {
+      margin-top: 40px;
+    }
+
+    .transaction-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .transaction-header input {
+      padding: 6px;
+      width: 200px;
+    }
+
+    .transaction-header button {
+      padding: 6px 15px;
+      background-color: #16a085;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #f4f7fc;
+    }
+
+    table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    table tbody tr td {
+      color: #34495e;
+    }
+  </style>
+</head>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - MONEY MAP</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #f4f7fc;
+    }
+
+    .sidebar {
+      background-color: #16a085;
+      color: #fff;
+      width: 250px;
+      padding: 20px;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      margin: 20px 0;
+    }
+
+    .sidebar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      padding: 10px;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #34495e;
+    }
+
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      color: #2c3e50;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Centers the cards */
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background-color: #dcf7f1;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      flex: 1;
+      text-align: center;
+      min-width: 150px;
+      height: 150px;
+      display: flex; /* Flexbox for centering */
+      align-items: center; /* Vertical centering */
+      justify-content: center; /* Horizontal centering */
+      flex-direction: column; /* Arrange text vertically */
+    }
+
+    .sidebar ul li.active a {
+  background-color: #12856e;
+  font-weight: bold;
+  border-radius: 10px;
+}
+.transaction-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        /* Change the table header color to grey */
+        table th {
+            background-color: grey; /* Light Grey */
+            color: white;
+        }
+
+        .actions button {
+            margin-left: 5px;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .actions .edit-btn {
+            background-color: #2ecc71; /* Lighter Green for edit */
+            color: white;
+        }
+
+        .actions .delete-btn {
+            background-color: lightcoral; /* Darker Green for delete */
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .filters-container,
+            .transaction-list {
+                padding: 10px;
+            }
+
+            .button-container button {
+                width: 80px;
+                margin-bottom: 10px;
+            }
+
+            .add-transaction-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #16a085;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+        }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">Money Map</div>
+    <ul>
+      <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+      <li  class="active"><a href="#"><i class="fas fa-exchange-alt"></i> Transactions</a></li>
+      <li><a href="#"><i class="fas fa-chart-pie"></i> Reports</a></li>
+      <li><a href="#"><i class="fas fa-cogs"></i> Settings</a></li>
+   </ul>
+  </div>
+  <div class="content">
+    <div class="content">
+        <header style="margin-bottom: 45px;">
+          <h1>Transaction Records</h1>
+          <div class="filters">
+            <label for="date-range">Date Range:</label>
+            <input type="date" id="date-range-start" name="start">
+            <input type="date" id="date-range-end" name="end">
+            <button onclick="applyFilters()">Apply</button>
+          </div>
+        </header>
+    
+
+
+    <!-- Transactions List -->
+    <div class="transaction-list">
+        <div class="transaction-header">
+            <input type="text" id="search" placeholder="Search by title..." oninput="searchTransactions()">
+            <button onclick="sortTransactions()">Sort by Date</button>
+          </div>
+        <table id="transaction-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Tags</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example dummy rows -->
+                <tr>
+                    <td>2024-12-01</td>
+                    <td>Monthly Rent</td>
+                    <td>$1200</td>
+                    <td>Expense</td>
+                    <td>Rent, Housing</td>
+                    <td>Paid for December rent</td>
+                    <td class="actions">
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2024-12-05</td>
+                    <td>Salary</td>
+                    <td>$3000</td>
+                    <td>Income</td>
+                    <td>Job, Monthly</td>
+                    <td>Received December salary</td>
+                    <td class="actions">
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2024-12-10</td>
+                    <td>Groceries</td>
+                    <td>$150</td>
+                    <td>Expense</td>
+                    <td>Food, Shopping</td>
+                    <td>Bought weekly groceries</td>
+                    <td class="actions">
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2024-12-15</td>
+                    <td>Freelance Project</td>
+                    <td>$500</td>
+                    <td>Income</td>
+                    <td>Freelance, Extra</td>
+                    <td>Payment for a web development project</td>
+                    <td class="actions">
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2024-12-20</td>
+                    <td>Electricity Bill</td>
+                    <td>$75</td>
+                    <td>Expense</td>
+                    <td>Bills, Utilities</td>
+                    <td>Paid December electricity bill</td>
+                    <td class="actions">
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+            
+            <tbody>
+                <!-- Transactions will be listed here dynamically -->
+            </tbody>
+        </table>
+    </div>
+    <!-- Add Transaction Button -->
+    <button style="position: absolute; bottom: 20px; right: 30px; padding: 10px 20px;
+    background-color: #16a085;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;">Add Transaction</button>
+  </div>
+
+</body>
+</html>
